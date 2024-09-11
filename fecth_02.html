@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fecth() 데이터받아오기</title>
+  </head>
+  <body>
+    <div id="display">
+      <!-- js출력 content.html -->
+    </div>
+    <!-- display2 -->
+    <div id="display2">
+      <!-- js -->
+    </div>
+    <script>
+      fetch("content.html")
+        .then(response=>{
+          // console.log(response);
+          if(!response.ok){
+            throw new Error("요청실패")
+          }
+          return response.text()
+          
+        })
+        .then(data=>{
+          // console.log(data);
+          document.getElementById("display").innerHTML = data
+        })
+        .catch(error=>{
+          // console.error("Error",요청실패);
+        })
+        fetch("content2.html")
+        .then(response=>{
+          if(!response.ok){
+            throw new Error("요청실패")
+          }
+          return response.text()
+        })
+        .then(data=>{
+          document.getElementById("display2").innerHTML = data
+        })
+        .catch(error=>{
+          console.error("Error",요청실패);
+          
+        })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>api 데이터 활용 예제</title>
+  </head>
+  <body>
+    <div id="posts-container">
+      <!-- https://jsonplaceholder.typicode.com/posts 데이터 출력 -->
+    </div>
+    <script>
+      fetch("https://jsonplaceholder.typicode.com/posts/1/comments")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log(data);
+          const container = document.getElementById("posts-container");
+          data.forEach((posts)=>{
+            // console.log(posts);
+          const postsDiv = document.createElement("div");
+          postsDiv.innerHTML = `
+          <p>postId:${posts.postId}</p>
+      <p>id:${posts.id}</p>
+      <p>name:${posts.name}</p>
+      <p>email:${posts.email}</p>
+      <p>body:${posts.body}</p>
+          `;
+          container.appendChild(postsDiv)
+          });
+        
+        })
+
+        .catch("error", (error=>{
+          console.error();
+          
+        }));
+    </script>
+  </body>
+</html>
