@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dog api</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      #dogList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 1100px;
+        background-color: antiquewhite;
+        margin: 0 auto;
+      }
+
+      .dogg {
+        width: 200px;
+        height: 200px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>강아지 목록</h1>
+    <div id="dogList">
+      <!-- js출력 -->
+    </div>
+    <script>
+      const headers = new Headers({
+        "Content-Type": "application/json",
+        "x-api-key": "live_jQLb224I7jpERR119aAj48AIQym6RMq2EwpV61lOTxoTBVNc98QNlZFcYzzpjM6q",
+      });
+      var requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
+      };
+      const dogList = document.getElementById("dogList");
+      fetch("https://api.thedogapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=20", requestOptions)
+        .then((response) => response.json())
+        .then((dogImg) => {
+          // console.log(dogImg);
+          dogImg.forEach((item) => {
+            console.log(item);
+            dogList.innerHTML += `
+      <div>
+        <p>id:${item.id}</p>
+        <p>width:${item.width}</p>
+        <p>height:${item.height}</p>
+        <img src="${item.url}" alt="" class="dogg">
+        </div>
+        `;
+          });
+        })
+        .catch((error) => console.log("error", error));
+    </script>
+  </body>
+</html>
